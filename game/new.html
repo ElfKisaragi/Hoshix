@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <%
 	require 'cgi'
 	cgi=CGI.new
@@ -35,7 +34,7 @@
 %>
 <html>
 	<head>
-		<title>ﾂ新ﾂ催ｬ</title>
+		<title>新作</title>
 		<meta http-equiv="Content-Type" content="text/html; charset="shift_jis">
 		<script language="JavaScript">
 			function xyget(x,y){
@@ -58,7 +57,7 @@
 		</style>
 	</head>
 	<body>
-		<h1>ﾂ新ﾂ催ｬ</h1>
+		<h1>新作</h1>
 		<table class="puzzle" border="5" bgcolor="navy">
 			<% for i in 0..8 %>
 				<tr border="1">
@@ -66,7 +65,7 @@
 						<td width="45" height="45" align="center" bgcolor="gold">
 							<a href="javascript:xyget(<%= j %>,<%= i %>)">
 								<% if data[i][j]==0 %>
-									<%= 'ﾂ　' %>
+									<%= '　' %>
 								<% else %>
 									<%= data[i][j] %>
 								<% end %>
@@ -95,6 +94,6 @@
 			<input type="hidden" name="y" value="">
 			<input type="hidden" name="n" value="<%= n %>">
 		</form>
-		<a class="com_ret" href="../">窶禿溪堙ｩ</a>
+		<a class="com_ret" href="../">戻る</a>
 	</body>
 </html>
