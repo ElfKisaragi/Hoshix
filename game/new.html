@@ -1,0 +1,99 @@
+<%
+	require 'cgi'
+	cgi=CGI.new
+	x=y=-1
+	n=1
+	datastr=cgi['data']
+	if(datastr=="")
+		datastr="000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+	else
+		x=cgi['x'].to_i
+		y=cgi['y'].to_i
+		n=cgi['n'].to_i
+	end
+	data=[]
+	for i in 0..8
+		arr=[]
+		for j in 0..8
+			arr.push(datastr[i*9+j,1].to_i)
+		end
+		data.push(arr)
+	end
+	if(x==3&&y==3)
+		n=0
+	elsif(x!=-1)
+		data[y][x]=n
+		datastr=""
+		for i in 0..8
+			for j in 0..8
+				datastr+=data[i][j].to_s
+			end
+		end
+	end
+	puts x,y,n
+%>
+<html>
+	<head>
+		<title>新作</title>
+		<meta http-equiv="Content-Type" content="text/html; charset="utf-8">
+		<script language="JavaScript">
+			function xyget(x,y){
+				document.xynget.x.value=x;
+				document.xynget.y.value=y;
+				document.xynget.submit();
+			}
+			function nget(n){
+				document.xynget.x.value=-1;
+				document.xynget.y.value=-1;
+				document.xynget.n.value=n;
+				document.xynget.submit();
+			}
+		</script>
+		<style type="text/css">
+			.puzzle{float:left;margin-left:250px;}
+			.number{margin:300px 0 0 800px;}
+			td{font-size:27px;}
+			.com_ret{margin-left:680px;};
+		</style>
+	</head>
+	<body>
+		<h1>?V?i</h1>
+		<table class="puzzle" border="5" bgcolor="navy">
+			<% for i in 0..8 %>
+				<tr border="1">
+					<% for j in 0..8 %>
+						<td width="45" height="45" align="center" bgcolor="gold">
+							<a href="javascript:xyget(<%= j %>,<%= i %>)">
+								<% if data[i][j]==0 %>
+									<%= '?@' %>
+								<% else %>
+									<%= data[i][j] %>
+								<% end %>
+							</a>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</table>
+		<table class="number" border="5" bgcolor="navy">
+			<% for i in 0..2 %>
+				<tr border="1">
+					<% for j in 0..2 %>
+						<td width="45" height="45" align="center" bgcolor="silver">
+							<a href="javascript:nget(<%= i*3+j+1 %>)">
+								<%= i*3+j+1 %>
+							</a>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</table>
+		<form name="xynget" method="post" action="new.html">
+			<input type="hidden" name="data" value="<%= datastr %>">
+			<input type="hidden" name="x" value="">
+			<input type="hidden" name="y" value="">
+			<input type="hidden" name="n" value="<%= n %>">
+		</form>
+		<a class="com_ret" href="../">戻る</a>
+	</body>
+</html>
